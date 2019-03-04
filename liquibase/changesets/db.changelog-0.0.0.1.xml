@@ -6,8 +6,8 @@
                       http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-1.9.xsd"> 
     <changeSet author="AZ" id="changelog-1.0">
         <createTable tableName="users">
-            <column name="id" type="int">
-                <constraints nullable="true" primaryKey="true" unique="false"/>
+            <column name="id" type="int"  autoIncrement="true">
+                <constraints nullable="true" primaryKey="true" unique="true"/>
             </column>
             <column name="ds_name" type="VARCHAR(50)">
                 <constraints nullable="true" primaryKey="false" unique="false"/>
@@ -21,12 +21,5 @@
         </createTable>
     </changeSet>
 
-<changeSet author="AZ" id="addAutoIncrement">
-    <addAutoIncrement 
-            columnName="id"
-            incrementBy="1"
-            startWith="1"
-            tableName="users"/>
-</changeSet>
     
 </databaseChangeLog> 

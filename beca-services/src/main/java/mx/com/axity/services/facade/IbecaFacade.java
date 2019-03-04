@@ -6,6 +6,6 @@ import java.util.List;
 
 public interface IbecaFacade {
 
-    List<UserTO> getAllUsers();
     int operation(int sum1, int sum2);
+    List<UserTO> getAllUsers();
 }

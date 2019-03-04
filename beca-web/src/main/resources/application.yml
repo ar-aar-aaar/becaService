@@ -1,8 +1,8 @@
 spring:
   datasource:
-    url: jdbc:postgresql://postgres:5432/unbound
+    url: jdbc:postgresql://localhost:5432/prueba
     username: postgres
-    password: project123
+    password: password
     driver-class-name: org.postgresql.Driver
   jpa:
     database-platform: org.hibernate.dialect.PostgreSQL9Dialect
