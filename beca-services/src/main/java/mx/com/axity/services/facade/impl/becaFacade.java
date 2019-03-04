@@ -38,4 +38,32 @@ public class becaFacade implements IbecaFacade {
         List<UserTO> result = this.modelMapper.map(userDOList, userTOType);
         return result;
     }
+
+    @Override
+    public void saveUser(UserTO userTO) {
+        UserDO userDO = modelMapper.map(userTO, UserDO.class);
+
+        this.becaService.createUser(userDO);
+
+    }
+
+    @Override
+    public void deleteUser(int id) {
+        this.becaService.deleteUser(id);
+        return;
+    }
+
+    @Override
+    public UserTO readUser(int id) {
+        UserDO userDO=this.becaService.readUser(id);
+        UserTO userTO=modelMapper.map(userDO, UserTO.class);
+        return userTO;
+    }
+
+    @Override
+    public void updateUser(UserTO userTO) {
+        UserDO userDO = modelMapper.map(userTO, UserDO.class);
+
+        this.becaService.updateUser(userDO);
+    }
 }

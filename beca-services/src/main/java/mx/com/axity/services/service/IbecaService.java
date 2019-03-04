@@ -13,4 +13,8 @@ public interface IbecaService {
     int multiplicacion(int mul);
     int division (int div);
     List<UserDO> getAllUsers();
+    void createUser(UserDO userDO);
+    void deleteUser(int id);
+    UserDO readUser (int id);
+    void updateUser(UserDO userDO);
 }

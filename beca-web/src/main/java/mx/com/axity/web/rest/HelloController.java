@@ -5,13 +5,12 @@ import mx.com.axity.commons.to.UserTO;
 import mx.com.axity.services.facade.IbecaFacade;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.postgresql.translation.messages_bg;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
 import java.util.List;
 
 @CrossOrigin(origins = "*", allowedHeaders = "*", allowCredentials = "true")
@@ -32,6 +31,54 @@ public class HelloController {
         List<UserTO> users = this.IbecaFacade.getAllUsers();
         return new ResponseEntity<>(users, HttpStatus.OK);
     }
+
+
+    @RequestMapping(value = "/users", method = RequestMethod.POST, produces = "application/json")
+    public ResponseEntity saveUser(@RequestBody UserTO userTO) {
+        LOG.info("User");
+        LOG.info(userTO.getId());
+        LOG.info(userTO.getName());
+        LOG.info(userTO.getLastName());
+        LOG.info(userTO.getAge());
+        userTO.setId(0);
+        this.IbecaFacade.saveUser(userTO);
+
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
+
+    @RequestMapping(value = "/userss", method = RequestMethod.POST, produces = "application/json")
+    public ResponseEntity updateUser(@RequestBody UserTO userTO) {
+
+        this.IbecaFacade.updateUser(userTO);
+        LOG.info("User");
+        LOG.info(userTO.getId());
+        LOG.info(userTO.getName());
+        LOG.info(userTO.getLastName());
+        LOG.info(userTO.getAge());
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
+
+    @RequestMapping(value = "/user", method = RequestMethod.GET, produces = "application/json")
+    public ResponseEntity findUser(@RequestParam(value = "id") int id) {
+        LOG.info("User id");
+        LOG.info(id);
+        UserTO userTO = this.IbecaFacade.readUser(id);
+        LOG.info("User");
+        LOG.info(userTO.getName());
+        LOG.info(userTO.getLastName());
+        LOG.info(userTO.getAge());
+
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
+
+    @RequestMapping(value = "/userd", method = RequestMethod.GET, produces = "application/json")
+    public ResponseEntity deleteUser(@RequestParam(value = "id") int id) {
+        LOG.info("User id");
+        LOG.info(id);
+        this.IbecaFacade.deleteUser(id);
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
+
 
     @RequestMapping(value = "/test", method = RequestMethod.GET, produces = "application/json")
     public ResponseEntity test() {
