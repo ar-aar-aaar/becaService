@@ -33,7 +33,7 @@ public class HelloController {
     }
 
 
-    @RequestMapping(value = "/users", method = RequestMethod.POST, produces = "application/json")
+    @RequestMapping(value = "/user", method = RequestMethod.POST, produces = "application/json")
     public ResponseEntity saveUser(@RequestBody UserTO userTO) {
         LOG.info("User");
         LOG.info(userTO.getId());
@@ -46,15 +46,16 @@ public class HelloController {
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
-    @RequestMapping(value = "/userss", method = RequestMethod.POST, produces = "application/json")
+    @RequestMapping(value = "/user", method = RequestMethod.PUT, produces = "application/json")
     public ResponseEntity updateUser(@RequestBody UserTO userTO) {
 
-        this.IbecaFacade.updateUser(userTO);
         LOG.info("User");
-        LOG.info(userTO.getId());
         LOG.info(userTO.getName());
         LOG.info(userTO.getLastName());
+        LOG.info(userTO.getId());
         LOG.info(userTO.getAge());
+
+        this.IbecaFacade.updateUser(userTO);
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
@@ -71,7 +72,7 @@ public class HelloController {
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
-    @RequestMapping(value = "/userd", method = RequestMethod.GET, produces = "application/json")
+    @RequestMapping(value = "/user", method = RequestMethod.DELETE, produces = "application/json")
     public ResponseEntity deleteUser(@RequestParam(value = "id") int id) {
         LOG.info("User id");
         LOG.info(id);

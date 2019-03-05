@@ -52,7 +52,7 @@ public class becaServiceImpl implements IbecaService {
 
     @Override
     public void createUser(UserDO userDO) {
-        userDO = this.userDAO.save(userDO);
+        this.userDAO.save(userDO);
     }
 
     @Override
