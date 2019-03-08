@@ -1,6 +1,7 @@
 package mx.com.axity.services.facade;
 
 import mx.com.axity.commons.to.UserTO;
+import mx.com.axity.model.UserDO;
 import org.apache.catalina.User;
 
 import java.util.List;

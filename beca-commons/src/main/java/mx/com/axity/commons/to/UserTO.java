@@ -8,6 +8,9 @@ public class UserTO implements Serializable {
     private String name;
     private String lastName;
     private int age;
+    private String username;
+    private String password;
+    private LoginTO loginTO;
 
     public int getId() {
         return id;
@@ -28,7 +31,6 @@ public class UserTO implements Serializable {
     public String getLastName() {
         return lastName;
     }
-
     public void setLastName(String lastName) {
         this.lastName = lastName;
     }
@@ -39,5 +41,29 @@ public class UserTO implements Serializable {
 
     public void setAge(int age) {
         this.age = age;
+    }
+
+    public LoginTO getLoginTO() {
+        return loginTO;
+    }
+
+    public void setLoginTO(LoginTO loginTO) {
+        this.loginTO = loginTO;
+    }
+
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
     }
 }

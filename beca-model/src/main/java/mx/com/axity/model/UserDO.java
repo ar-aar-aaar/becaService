@@ -7,7 +7,8 @@ import javax.persistence.*;
 public class UserDO {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "UserSeq")
+    @SequenceGenerator(name="UserSeq", sequenceName = "users_id_seq", allocationSize = 1)
     @Column(name = "id")
     private Long id;
     @Column(name = "ds_name")
@@ -16,6 +17,8 @@ public class UserDO {
     private String lastName;
     @Column(name = "age")
     private int age;
+    @OneToOne @MapsId
+    LoginDO loginDO;
 
     protected UserDO() {
     }
@@ -56,5 +59,13 @@ public class UserDO {
 
     public void setAge(int age) {
         this.age = age;
+    }
+
+    public LoginDO getLoginDO() {
+        return loginDO;
+    }
+
+    public void setLoginDO(LoginDO loginDO) {
+        this.loginDO = loginDO;
     }
 }

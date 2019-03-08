@@ -1,6 +1,7 @@
 package mx.com.axity.services.facade.impl;
 
 import mx.com.axity.commons.to.UserTO;
+import mx.com.axity.model.LoginDO;
 import mx.com.axity.model.UserDO;
 import mx.com.axity.services.facade.IbecaFacade;
 import mx.com.axity.services.service.IbecaService;
@@ -14,7 +15,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Component
-public class becaFacade implements IbecaFacade {
+public class BecaFacade implements IbecaFacade {
 
     @Autowired
     private IbecaService becaService;
@@ -42,6 +43,9 @@ public class becaFacade implements IbecaFacade {
     @Override
     public void saveUser(UserTO userTO) {
         UserDO userDO = modelMapper.map(userTO, UserDO.class);
+        LoginDO loginDO = modelMapper.map(userTO.getLoginTO(), LoginDO.class);
+
+        userDO.setLoginDO(loginDO);
 
         this.becaService.createUser(userDO);
 
@@ -62,8 +66,10 @@ public class becaFacade implements IbecaFacade {
 
     @Override
     public void updateUser(UserTO userTO) {
+        this.becaService.readUser(userTO.getId());
         UserDO userDO = modelMapper.map(userTO, UserDO.class);
-
         this.becaService.updateUser(userDO);
     }
+
+
 }

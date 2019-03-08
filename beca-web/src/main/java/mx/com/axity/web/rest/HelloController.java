@@ -1,6 +1,7 @@
 package mx.com.axity.web.rest;
 
 import io.swagger.annotations.Api;
+import mx.com.axity.commons.to.LoginTO;
 import mx.com.axity.commons.to.UserTO;
 import mx.com.axity.services.facade.IbecaFacade;
 import org.apache.logging.log4j.LogManager;
@@ -40,7 +41,10 @@ public class HelloController {
         LOG.info(userTO.getName());
         LOG.info(userTO.getLastName());
         LOG.info(userTO.getAge());
-        userTO.setId(0);
+        LoginTO loginTO= new LoginTO();
+        loginTO.setPassword(userTO.getPassword());
+        loginTO.setUsername(userTO.getPassword());
+        userTO.setLoginTO(loginTO);
         this.IbecaFacade.saveUser(userTO);
 
         return new ResponseEntity<>(HttpStatus.OK);
@@ -55,8 +59,11 @@ public class HelloController {
         LOG.info(userTO.getId());
         LOG.info(userTO.getAge());
 
+
         this.IbecaFacade.updateUser(userTO);
-        return new ResponseEntity<>(HttpStatus.OK);
+
+
+        return new ResponseEntity<> (HttpStatus.OK);
     }
 
     @RequestMapping(value = "/user", method = RequestMethod.GET, produces = "application/json")
