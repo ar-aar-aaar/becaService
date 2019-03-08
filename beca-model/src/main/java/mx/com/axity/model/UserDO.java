@@ -17,8 +17,6 @@ public class UserDO {
     private String lastName;
     @Column(name = "age")
     private int age;
-    @OneToOne @MapsId
-    LoginDO loginDO;
 
     protected UserDO() {
     }
@@ -59,13 +57,5 @@ public class UserDO {
 
     public void setAge(int age) {
         this.age = age;
-    }
-
-    public LoginDO getLoginDO() {
-        return loginDO;
-    }
-
-    public void setLoginDO(LoginDO loginDO) {
-        this.loginDO = loginDO;
     }
 }

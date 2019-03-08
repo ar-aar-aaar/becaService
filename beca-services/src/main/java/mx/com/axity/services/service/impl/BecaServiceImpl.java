@@ -1,5 +1,6 @@
 package mx.com.axity.services.service.impl;
 
+import mx.com.axity.model.LoginDO;
 import mx.com.axity.model.UserDO;
 import mx.com.axity.persistence.LoginDAO;
 import mx.com.axity.persistence.UserDAO;
@@ -56,19 +57,16 @@ public class BecaServiceImpl implements IbecaService {
     @Override
     public void createUser(UserDO userDO) {
         this.userDAO.save(userDO);
-        this.loginDAO.save(userDO.getLoginDO());
     }
 
     @Override
     public void deleteUser(int id) {
         this.userDAO.deleteById((long) id);
-        this.loginDAO.deleteById((long) id);
     }
 
     @Override
     public UserDO readUser(int id) {
         UserDO userDO=this.userDAO.findById((long) id).get();
-        userDO.setLoginDO(this.loginDAO.findById((long) id).get());
         return userDO;
     }
 
@@ -76,7 +74,31 @@ public class BecaServiceImpl implements IbecaService {
     public void updateUser(UserDO userDO) {
         this.userDAO.findById(userDO.getId());
         this.userDAO.save(userDO);
-        this.loginDAO.save(userDO.getLoginDO());
+    }
+
+    @Override
+    public void createLogin(LoginDO loginDO) {
+        this.loginDAO.save(loginDO);
+
+    }
+
+    @Override
+    public void deleteLogin(int id) {
+        this.loginDAO.deleteById((long) id);
+
+    }
+
+    @Override
+    public LoginDO readLogin(int id) {
+        LoginDO loginDO=this.loginDAO.findById((long) id).get();
+        return loginDO;
+    }
+
+    @Override
+    public void updateUser(LoginDO loginDO) {
+        this.loginDAO.findById((long) loginDO.getId());
+        this.loginDAO.save(loginDO);
+
     }
 
 

@@ -1,5 +1,6 @@
 package mx.com.axity.services.facade.impl;
 
+import mx.com.axity.commons.to.LoginTO;
 import mx.com.axity.commons.to.UserTO;
 import mx.com.axity.model.LoginDO;
 import mx.com.axity.model.UserDO;
@@ -11,7 +12,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.lang.reflect.Type;
-import java.util.ArrayList;
 import java.util.List;
 
 @Component
@@ -43,10 +43,6 @@ public class BecaFacade implements IbecaFacade {
     @Override
     public void saveUser(UserTO userTO) {
         UserDO userDO = modelMapper.map(userTO, UserDO.class);
-        LoginDO loginDO = modelMapper.map(userTO.getLoginTO(), LoginDO.class);
-
-        userDO.setLoginDO(loginDO);
-
         this.becaService.createUser(userDO);
 
     }
@@ -69,6 +65,35 @@ public class BecaFacade implements IbecaFacade {
         this.becaService.readUser(userTO.getId());
         UserDO userDO = modelMapper.map(userTO, UserDO.class);
         this.becaService.updateUser(userDO);
+    }
+
+    @Override
+    public void saveLogin(LoginTO loginTO) {
+        LoginDO loginDO = modelMapper.map(loginTO, LoginDO.class);
+        this.becaService.createLogin(loginDO);
+
+    }
+
+    @Override
+    public void deleteLogin(int id) {
+        this.becaService.deleteLogin(id);
+        return;
+
+    }
+
+    @Override
+    public LoginTO readLogin(int id) {
+        LoginDO loginDO=this.becaService.readLogin(id);
+        LoginTO loginTO=modelMapper.map(loginDO, LoginTO.class);
+        return loginTO;
+    }
+
+    @Override
+    public void updateLogin(LoginTO loginTO) {
+        this.becaService.readUser(loginTO.getId());
+        LoginDO loginDO = modelMapper.map(loginTO, LoginDO.class);
+        this.becaService.updateUser(loginDO);
+
     }
 
 

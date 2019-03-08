@@ -6,7 +6,6 @@ import mx.com.axity.commons.to.UserTO;
 import mx.com.axity.services.facade.IbecaFacade;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import org.postgresql.translation.messages_bg;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -41,10 +40,6 @@ public class HelloController {
         LOG.info(userTO.getName());
         LOG.info(userTO.getLastName());
         LOG.info(userTO.getAge());
-        LoginTO loginTO= new LoginTO();
-        loginTO.setPassword(userTO.getPassword());
-        loginTO.setUsername(userTO.getPassword());
-        userTO.setLoginTO(loginTO);
         this.IbecaFacade.saveUser(userTO);
 
         return new ResponseEntity<>(HttpStatus.OK);
@@ -84,6 +79,46 @@ public class HelloController {
         LOG.info("User id");
         LOG.info(id);
         this.IbecaFacade.deleteUser(id);
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
+
+    @RequestMapping(value = "/login", method = RequestMethod.POST, produces = "application/json")
+    public ResponseEntity saveLogin(@RequestBody LoginTO loginTO) {
+
+        this.IbecaFacade.saveLogin(loginTO);
+
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
+
+    @RequestMapping(value = "/login", method = RequestMethod.PUT, produces = "application/json")
+    public ResponseEntity updateLogin(@RequestBody LoginTO loginTO) {
+
+
+        this.IbecaFacade.updateLogin(loginTO);
+
+
+        return new ResponseEntity<> (HttpStatus.OK);
+    }
+
+    @RequestMapping(value = "/login", method = RequestMethod.GET, produces = "application/json")
+    public ResponseEntity findLogin(@RequestParam(value = "id") int id) {
+        LOG.info("Login id");
+        LOG.info(id);
+        LoginTO loginTO = this.IbecaFacade.readLogin(id);
+        LOG.info("Login");
+        LOG.info(loginTO.getId());
+        LOG.info(loginTO.getUsername());
+        LOG.info(loginTO.getPassword());
+
+
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
+
+    @RequestMapping(value = "/login", method = RequestMethod.DELETE, produces = "application/json")
+    public ResponseEntity deleteLogin(@RequestParam(value = "id") int id) {
+        LOG.info("Login id");
+        LOG.info(id);
+        this.IbecaFacade.deleteLogin(id);
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
